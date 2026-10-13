@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Meta Tags -->
+  <title>Leadership & Governance | Radiant Trust International (RTI Ghana)</title>
+  <meta name="description" content="Meet the executive leadership and governance team of Radiant Trust International (RTI Ghana), led by Founder & CEO Benjamin Nyadanu.">
+  <meta name="keywords" content="RTI Ghana leadership, Benjamin Nyadanu, Lungiawa Mzimba, Emil Amanful, Lawrence Quartey, Nana Kwame Ababio, John Adje Fioklou, Ghanaian NGO leaders">
+  <meta name="author" content="Radiant Trust International">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.radianttrust.org/leadership.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.radianttrust.org/leadership.html">
+  <meta property="og:title" content="Leadership Team - Radiant Trust International (RTI)">
+  <meta property="og:description" content="Our executive team and directors bringing decades of expertise in social enterprise across Ghana.">
+  <meta property="og:image" content="assets/images/logo.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
+
+  <!-- Font Awesome & Stylesheet -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <style>
+    /* Org Tree Hierarchy matching PDF Page 4 - Squared with no border boxes */
+    .org-tree-wrapper {
+      background: var(--color-white);
+      padding: 3rem 2rem;
+      box-shadow: var(--shadow-lg);
+      margin: 3.5rem auto 0;
+      max-width: 1000px;
+      text-align: center;
+      border: none;
+      border-radius: 0;
+    }
+    .org-node {
+      display: inline-block;
+      padding: 1rem 1.75rem;
+      font-weight: 700;
+      color: var(--color-white);
+      box-shadow: var(--shadow-md);
+      position: relative;
+      margin: 0.5rem;
+      border-radius: 0; /* Squared */
+      border: none;
+    }
+    .org-node.ceo-node {
+      background: linear-gradient(135deg, #f5ad3d 0%, #F29C1C 100%);
+      font-size: 1.15rem;
+      min-width: 240px;
+    }
+    .org-node.hr-node {
+      background: #7250AE;
+      font-size: 1.05rem;
+      min-width: 220px;
+    }
+    .org-node.director-node {
+      background: #472b78;
+      font-size: 0.95rem;
+      min-width: 200px;
+    }
+    .tree-connector-line {
+      width: 2px;
+      height: 35px;
+      background: #cbd5e1;
+      margin: 0 auto;
+    }
+    .tree-horizontal-bar {
+      width: 80%;
+      height: 2px;
+      background: #cbd5e1;
+      margin: 0 auto;
+      position: relative;
+    }
+    .tree-row {
+      display: flex;
+      justify-content: space-around;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Announcement Bar -->
+  <div class="topbar">
+    <div class="container topbar-content">
+      <div class="topbar-left">
+        <span class="topbar-item"><i class="fa-solid fa-location-dot"></i> 14 Mango Avenue, Tantra Hills, Accra-Ghana</span>
+        <span class="topbar-item"><i class="fa-solid fa-envelope"></i> <a href="mailto:radianttrust@gmail.com">radianttrust@gmail.com</a></span>
+      </div>
+      <div class="topbar-right">
+        <span class="topbar-item"><i class="fa-solid fa-phone"></i> <a href="tel:+233264747744">+233 26 474 7744</a> / <a href="tel:0200423277">020 042 3277</a></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header" id="siteHeader">
+    <div class="container">
+      <nav class="navbar" aria-label="Primary Navigation">
+        <a href="index.html" class="brand">
+          <img src="assets/images/logo.png" alt="Radiant Trust Logo" class="brand-logo-img">
+        </a>
+
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="about.html" class="nav-link">About Us</a></li>
+          <li><a href="index.html#programs" class="nav-link">Our Programs</a></li>
+          <li><a href="leadership.html" class="nav-link active">Leadership</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <a href="donate.html" class="btn btn-donate">
+            Donate Now
+          </a>
+          <button class="mobile-toggle" id="mobileToggle" aria-label="Open mobile menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <aside class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-header">
+      <div class="brand">
+        <img src="assets/images/logo.png" alt="Radiant Trust Logo" style="height: 40px; width: auto;">
+      </div>
+      <button class="drawer-close" id="drawerClose">&times;</button>
+    </div>
+    <ul class="drawer-nav">
+      <li><a href="index.html" class="drawer-link"><span>Home</span> <i class="fa-solid fa-chevron-right"></i></a></li>
+      <li><a href="about.html" class="drawer-link"><span>About Us</span> <i class="fa-solid fa-chevron-right"></i></a></li>
+      <li><a href="index.html#programs" class="drawer-link"><span>Our Programs</span> <i class="fa-solid fa-chevron-right"></i></a></li>
+      <li><a href="leadership.html" class="drawer-link active"><span>Leadership</span> <i class="fa-solid fa-chevron-right"></i></a></li>
+      <li><a href="contact.html" class="drawer-link"><span>Contact</span> <i class="fa-solid fa-chevron-right"></i></a></li>
+    </ul>
+    <div class="drawer-actions-stack">
+      <a href="donate.html" class="btn btn-donate" style="width: 100%; justify-content: center;">
+        Donate Today
+      </a>
+      <button type="button" class="btn btn-outline-orange" data-open-volunteer="true" style="width: 100%; justify-content: center;">
+        Volunteer With Us
+      </button>
+    </div>
+  </aside>
+
+  <!-- PAGE HEADER -->
+  <section class="page-hero-banner">
+    <div class="container">
+      <span class="hero-badge">
+        <i class="fa-solid fa-users"></i> Executive Governance
+      </span>
+      <h1 class="page-hero-title">
+        Our Leadership & Management Team
+      </h1>
+      <p class="page-hero-desc">
+        RTI has a professional and dedicated team of men and women who have rich experience in social enterprise, community development, and humanitarian action in Ghana and abroad.
+      </p>
+    </div>
+  </section>
+
+  <!-- LEADERSHIP PROFILES (Spread Showcase with CEO in the Middle) -->
+  <section class="section leadership-showcase-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="section-tag-pill purple">Executive Leadership</span>
+        <h2 class="section-title">We Have an Entire Team Dedicated to Grassroots Impact</h2>
+        <p class="section-subtitle">
+          Guiding strategy, program execution, human capital, and operational transparency across Ghana's 16 regions.
+        </p>
+      </div>
+
+      <!-- Perspective Pattern Row (CEO Drops Deep in Center, Surrounding Cards Step Forward in Black & White) -->
+      <div class="team-perspective-container">
+        <div class="team-perspective-row">
+          
+          <!-- Outer Left (Depth 3: forward most, B&W) -->
+          <div class="team-perspective-card depth-3">
+            <div class="team-perspective-img-box">
+              <img src="assets/images/leader_hr.jpg" alt="Doris Yeu - Board Member">
+            </div>
+            <div class="team-perspective-glass">
+              <span class="team-glass-name">Doris Yeu</span>
+              <span class="team-glass-role">Board Member</span>
+            </div>
+          </div>
+
+          <!-- Mid Left (Depth 2: forward stepped, B&W) -->
+          <div class="team-perspective-card depth-2">
+            <div class="team-perspective-img-box">
+              <img src="assets/images/Jerry Ferguson- Board member.jpeg" alt="Jerry Ferguson - Board Member">
+            </div>
+            <div class="team-perspective-glass">
+              <span class="team-glass-name">Jerry Ferguson</span>
+              <span class="team-glass-role">Board Member</span>
+            </div>
+          </div>
+
+          <!-- Near Left (Depth 1: stepped forward, B&W) -->
+          <div class="team-perspective-card depth-1">
+            <div class="team-perspective-img-box">
+              <img src="assets/images/Sylia Ade-Human Resource Manager.jpeg" alt="Sylvia Ade - Human Resource Manager">
+            </div>
+            <div class="team-perspective-glass">
+              <span class="team-glass-name">Sylvia Ade</span>
+              <span class="team-glass-role">Human Resources</span>
+            </div>
+          </div>
+
+          <!-- CENTER (CEO Peter: DROPS DEEP, BRIGHT & NORMAL COLOR WITHOUT FILTER) -->
+          <div class="team-perspective-card depth-ceo">
+            <div class="team-perspective-img-box">
+              <img src="assets/images/Peter - CEO.jpeg" alt="Peter - Chief Executive Officer">
+            </div>
+            <div class="team-perspective-glass ceo-glass">
+              <span class="team-glass-name">Peter</span>
+              <span class="team-glass-role">Chief Executive Officer</span>
+            </div>
+          </div>
+
+          <!-- Near Right (Depth 1: stepped forward, B&W) -->
+          <div class="team-perspective-card depth-1">
+            <div class="team-perspective-img-box">
+              <img src="assets/images/Samuel Asiedu - Director.jpeg" alt="Samuel Asiedu - Director">
+            </div>
+            <div class="team-perspective-glass">
+              <span class="team-glass-name">Samuel Asiedu</span>
+              <span class="team-glass-role">Director</span>
+            </div>
+          </div>
+
+          <!-- Mid Right (Depth 2: forward stepped, B&W) -->
+          <div class="team-perspective-card depth-2">
+            <div class="team-perspective-img-box">
+              <img src="assets/images/leader_finance.jpg" alt="Dr. Daniel Akapo - Board Member">
+            </div>
+            <div class="team-perspective-glass">
+              <span class="team-glass-name">Dr. Daniel Akapo</span>
+              <span class="team-glass-role">Board Member</span>
+            </div>
+          </div>
+
+          <!-- Outer Right (Depth 3: forward most, B&W) -->
+          <div class="team-perspective-card depth-3">
+            <div class="team-perspective-img-box">
+              <img src="assets/images/leader_auditor.jpg" alt="Nana Osei - Field Operations Lead">
+            </div>
+            <div class="team-perspective-glass">
+              <span class="team-glass-name">Nana Osei</span>
+              <span class="team-glass-role">Field Operations</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ORGANIZATIONAL HIERARCHY CHART (Squared, No Border Box) -->
+      <div class="org-tree-wrapper">
+        <span class="section-tag purple" style="margin-bottom: 0.5rem;">Governance Structure</span>
+        <h3 style="font-family: var(--font-heading); font-size: 1.8rem; color: var(--color-purple-900); margin-bottom: 0.5rem;">
+          RTI Organizational Hierarchy
+        </h3>
+        <p style="font-size: 0.95rem; color: var(--color-slate-600); margin-bottom: 2rem;">
+          Direct institutional framework from the Radiant Trust International presentation profile
+        </p>
+
+        <!-- CEO Level -->
+        <div>
+          <div class="org-node ceo-node">
+            <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9;">Founder / CEO</div>
+            Peter
+          </div>
+        </div>
+
+        <div class="tree-connector-line"></div>
+
+        <!-- HR Level -->
+        <div>
+          <div class="org-node hr-node">
+            <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9;">Human Resource Manager</div>
+            Sylvia Ade
+          </div>
+        </div>
+
+        <div class="tree-connector-line"></div>
+        <div class="tree-horizontal-bar"></div>
+
+        <!-- Directorate & Board Level -->
+        <div class="tree-row">
+          <div class="org-node director-node">
+            <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9;">Director</div>
+            Samuel Asiedu
+          </div>
+
+          <div class="org-node director-node">
+            <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9;">Board Member</div>
+            Jerry Ferguson
+          </div>
+
+          <div class="org-node director-node">
+            <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9;">Board Member</div>
+            Dr. Daniel Akapo
+          </div>
+
+          <div class="org-node director-node">
+            <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9;">Board Member</div>
+            Doris Yeu
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA STRIP -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="cta-banner">
+        <div class="cta-banner-content">
+          <h2>Partner With Our Dedicated Leadership</h2>
+          <p>
+            Whether you represent a philanthropic fund, government agency, or individual supporter, RTI welcomes collaborative partnerships that change lives.
+          </p>
+          <div class="cta-banner-actions">
+            <button type="button" class="btn btn-donate" data-open-volunteer="true">
+              Volunteer With Us
+            </button>
+            <a href="contact.html" class="btn btn-outline-white">
+              Contact Our Team
+            </a>
+            <a href="donate.html" class="btn btn-outline-white">
+              Make a Donation
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo-wrap">
+            <img src="assets/images/logo.png" alt="Radiant Trust Logo" class="footer-logo-img">
+          </div>
+          <p class="footer-desc">
+            A Ghanaian non-governmental organization and social enterprise promoting social change and environmental resilience across West Africa.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fa-solid fa-angle-right"></i> Home</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-angle-right"></i> About RTI Ghana</a></li>
+            <li><a href="leadership.html"><i class="fa-solid fa-angle-right"></i> Leadership & Team</a></li>
+            <li><a href="contact.html"><i class="fa-solid fa-angle-right"></i> Contact & Location</a></li>
+            <li><a href="donate.html"><i class="fa-solid fa-angle-right"></i> Support & Donate</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Office Location</h4>
+          <ul class="footer-contact-list">
+            <li class="footer-contact-item">
+              <i class="fa-solid fa-location-dot"></i>
+              <span>14 Mango Avenue, Tantra Hills, Accra-Ghana</span>
+            </li>
+            <li class="footer-contact-item">
+              <i class="fa-solid fa-envelope"></i>
+              <div>
+                <a href="mailto:radianttrust@gmail.com">radianttrust@gmail.com</a><br>
+                <a href="mailto:bnyadanu@gmail.com">bnyadanu@gmail.com</a>
+              </div>
+            </li>
+            <li class="footer-contact-item">
+              <i class="fa-solid fa-phone"></i>
+              <div>
+                <a href="tel:+233264747744">+233 26 474 7744</a><br>
+                <a href="tel:0200423277">020 042 3277</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Support Our Work</h4>
+          <p class="footer-newsletter-text">Join us in driving sustainable social impact across Ghana.</p>
+          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <a href="donate.html" class="btn btn-donate" style="width: 100%; justify-content: center;">
+              Donate Now
+            </a>
+            <button type="button" class="btn btn-outline-white" data-open-volunteer="true" style="width: 100%; justify-content: center;">
+              Volunteer With Us
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 Radiant Trust International (RTI Ghana). All rights reserved.</div>
+        <div>Tantra Hills, Accra &bull; A Ghanaian Social Enterprise</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================================================================
+       MODAL: DONATE / DIRECT GIVING
+       =================================================================== -->
+  <div class="modal-backdrop" id="donateModal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div>
+          <span class="modal-tag">Official Contribution</span>
+          <h3 id="modalTitle">Support Radiant Trust International</h3>
+        </div>
+        <button class="modal-close" id="modalClose" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.95rem; color: var(--color-body); margin-bottom: 1.5rem; line-height: 1.6;">
+          Your donation supports solar boreholes, agro-ecological starter toolkits, youth vocational scholarships, and emergency aid across Ghana.
+        </p>
+        <div class="momo-card">
+          <div class="momo-header">
+            <i class="fa-solid fa-mobile-screen-button"></i>
+            <div>
+              <strong>Ghana Mobile Money (MTN / Telecel / AT)</strong>
+              <div style="font-size: 0.8rem; color: var(--color-muted);">Direct Secretariat Line</div>
+            </div>
+          </div>
+          <div class="momo-number">
+            <span>+233 26 474 7744</span>
+            <button class="copy-btn" data-copy="+233264747744" title="Copy Number">Copy</button>
+          </div>
+          <div style="font-size: 0.8rem; color: var(--color-muted); margin-top: 0.35rem;">
+            Secondary contact: <strong>020 042 3277</strong> | Reference: <em>RTI Mission</em>
+          </div>
+        </div>
+        <div class="bank-card">
+          <div class="bank-header">
+            <i class="fa-solid fa-building-columns"></i>
+            <div>
+              <strong>Bank Wire / Donor Grant Allocation</strong>
+              <div style="font-size: 0.8rem; color: var(--color-muted);">Account: Radiant Trust International</div>
+            </div>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--color-body); margin: 0.5rem 0 0;">
+            For international grants, wire routing codes, or designated project endowments, please contact our secretariat directly:
+          </p>
+          <div style="margin-top: 0.75rem;">
+            <a href="mailto:radianttrust@gmail.com?subject=Donation%20Inquiry%20-%20RTI" class="btn btn-orange" style="width: 100%; justify-content: center;">
+              Email Secretariat for Bank Routing
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       MODAL: VOLUNTEER POPUP FORM
+       =================================================================== -->
+  <div class="modal-backdrop" id="volunteerModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="volunteerModalTitle">
+    <div class="modal-container volunteer-modal-container">
+      <div class="modal-header">
+        <div>
+          <span class="modal-tag volunteer-tag"><i class="fa-solid fa-hand-holding-heart"></i> Join Our Field Movement</span>
+          <h3 id="volunteerModalTitle">Volunteer With Radiant Trust</h3>
+        </div>
+        <button class="modal-close" id="volunteerModalClose" aria-label="Close volunteer modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <p class="modal-intro-text">
+          Lend your hands, professional skills, and passion to rural communities across Ghana's 16 regions. Our volunteer team will review your application and match you with active grassroots projects.
+        </p>
+
+        <form id="volunteerForm" class="volunteer-form">
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="volFullName" class="form-label">Full Name *</label>
+              <input type="text" id="volFullName" name="fullName" class="form-control" placeholder="e.g. Kwame Mensah" required>
+            </div>
+            <div class="form-group">
+              <label for="volEmail" class="form-label">Email Address *</label>
+              <input type="email" id="volEmail" name="email" class="form-control" placeholder="kwame@example.com" required>
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="volPhone" class="form-label">Phone / WhatsApp *</label>
+              <input type="tel" id="volPhone" name="phone" class="form-control" placeholder="+233 26 474 7744" required>
+            </div>
+            <div class="form-group">
+              <label for="volRegion" class="form-label">Primary Region / Location *</label>
+              <select id="volRegion" name="region" class="form-control" required>
+                <option value="">Select your region...</option>
+                <option value="Greater Accra">Greater Accra</option>
+                <option value="Ashanti">Ashanti</option>
+                <option value="Northern">Northern</option>
+                <option value="Volta">Volta</option>
+                <option value="Eastern">Eastern</option>
+                <option value="Central">Central</option>
+                <option value="Western">Western</option>
+                <option value="Upper East">Upper East</option>
+                <option value="Upper West">Upper West</option>
+                <option value="Bono">Bono</option>
+                <option value="Bono East">Bono East</option>
+                <option value="Ahafo">Ahafo</option>
+                <option value="Oti">Oti</option>
+                <option value="Savannah">Savannah</option>
+                <option value="North East">North East</option>
+                <option value="Western North">Western North</option>
+                <option value="Diaspora / International">Diaspora / International</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="volInterest" class="form-label">Primary Impact Sector *</label>
+              <select id="volInterest" name="interest" class="form-control" required>
+                <option value="">Select area of interest...</option>
+                <option value="Agro-Ecology & Sustainable Farming">Agro-Ecology & Sustainable Farming</option>
+                <option value="Clean Water & Borehole Engineering">Clean Water & Solar Boreholes</option>
+                <option value="Health, Hygiene & Medical Aid">Health, Sanitation & Medical Aid</option>
+                <option value="Education, Youth & TVET Mentorship">Education & TVET Youth Training</option>
+                <option value="Field Logistics & Community Organizing">Field Logistics & Mobilization</option>
+                <option value="Media, Photography & Storytelling">Media, Photography & Storytelling</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="volAvailability" class="form-label">Availability Commitment *</label>
+              <select id="volAvailability" name="availability" class="form-control" required>
+                <option value="Flexible / As Needed">Flexible / As Needed</option>
+                <option value="Weekends Only">Weekends Only</option>
+                <option value="Full Project Deployments (1-2 weeks)">Full Project Deployments (1-2 weeks)</option>
+                <option value="Remote / Advisory Support">Remote / Advisory Support</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="volMessage" class="form-label">Brief Background & Experience</label>
+            <textarea id="volMessage" name="message" class="form-control" rows="3" placeholder="Tell us briefly about your skills, prior volunteer work, or why you want to join RTI Ghana..."></textarea>
+          </div>
+
+          <div class="modal-form-actions">
+            <button type="submit" class="btn btn-orange" id="volSubmitBtn" style="width: 100%; justify-content: center; padding: 0.95rem; font-size: 1rem;">
+              Submit Volunteer Application
+            </button>
+          </div>
+
+          <div id="volunteerSuccessBox" class="volunteer-success-card" style="display: none;">
+            <div class="success-icon"><i class="fa-solid fa-check"></i></div>
+            <div class="success-text">
+              <h4>Application Successfully Submitted!</h4>
+              <p>Medasi! (Thank you). Our secretariat volunteer coordinator will review your profile and reach out via email or WhatsApp within 48 hours.</p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
