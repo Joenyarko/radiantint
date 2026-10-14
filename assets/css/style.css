@@ -121,11 +121,11 @@ button, input {
 
 /* --- 3. TOPBAR --- */
 .topbar {
-  background: var(--color-purple-primary) !important;
-  color: #ffffff !important;
+  background: #ffffff !important;
+  color: var(--color-purple-primary) !important;
   font-size: 0.85rem;
   padding: 0.65rem 0;
-  border-bottom: none;
+  border-bottom: 1px solid rgba(114, 80, 174, 0.12);
 }
 
 .topbar-content {
@@ -146,14 +146,20 @@ button, input {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
+  color: var(--color-purple-primary) !important;
+  font-weight: 500;
 }
 
 .topbar-item i {
-  color: #ffffff;
+  color: var(--color-purple-primary) !important;
+}
+
+.topbar-item a {
+  color: var(--color-purple-primary) !important;
 }
 
 .topbar-item a:hover {
-  color: var(--color-orange-500);
+  color: var(--color-orange-500) !important;
 }
 
 .topbar-socials {
@@ -163,12 +169,12 @@ button, input {
 }
 
 .topbar-socials a {
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--color-purple-primary) !important;
   transition: var(--transition-fast);
 }
 
 .topbar-socials a:hover {
-  color: var(--color-orange-500);
+  color: var(--color-orange-500) !important;
   transform: translateY(-1px);
 }
 
@@ -3286,19 +3292,19 @@ a.btn-outline-white:hover,
 
 
 .topbar-item {
-  color: #ffffff !important;
+  color: var(--color-purple-primary) !important;
 }
 .topbar-item i {
-  color: #ffffff !important;
+  color: var(--color-purple-primary) !important;
 }
 .topbar-item a {
-  color: #ffffff !important;
+  color: var(--color-purple-primary) !important;
 }
 .topbar-item a:hover {
   color: var(--color-orange-500) !important;
 }
 .topbar-socials a {
-  color: #ffffff !important;
+  color: var(--color-purple-primary) !important;
 }
 .topbar-socials a:hover {
   color: var(--color-orange-500) !important;
