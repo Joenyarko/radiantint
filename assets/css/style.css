@@ -121,7 +121,7 @@ button, input {
 
 /* --- 3. TOPBAR --- */
 .topbar {
-  background: var(--color-orange-500) !important;
+  background: var(--color-purple-primary) !important;
   color: #ffffff !important;
   font-size: 0.85rem;
   padding: 0.65rem 0;
@@ -149,7 +149,7 @@ button, input {
 }
 
 .topbar-item i {
-  color: var(--color-orange-500);
+  color: #ffffff;
 }
 
 .topbar-item a:hover {
@@ -163,7 +163,7 @@ button, input {
 }
 
 .topbar-socials a {
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.85);
   transition: var(--transition-fast);
 }
 
@@ -177,10 +177,11 @@ button, input {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(255, 255, 255, 0.96);
+  background: var(--color-orange-500) !important;
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 20px rgba(242, 156, 28, 0.28);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   transition: var(--transition);
 }
 
@@ -210,9 +211,9 @@ button, input {
 }
 
 .nav-link {
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.96rem;
-  color: var(--color-dark);
+  color: #ffffff !important;
   position: relative;
   padding: 0.35rem 0;
   transition: var(--transition);
@@ -220,7 +221,7 @@ button, input {
 
 .nav-link:hover,
 .nav-link.active {
-  color: var(--color-orange-500);
+  color: #2b1254 !important;
 }
 
 .nav-link.active::after {
@@ -230,7 +231,7 @@ button, input {
   left: 0;
   width: 100%;
   height: 2.5px;
-  background: var(--color-orange-500);
+  background: #2b1254 !important;
   border-radius: var(--radius-pill);
 }
 
@@ -240,14 +241,14 @@ button, input {
   gap: 1rem;
 }
 
-/* --- TOP/NAVBAR DONATE BUTTON: TRANSPARENT BACKGROUND WITH ORANGE BORDER --- */
+/* --- TOP/NAVBAR DONATE BUTTON: TRANSPARENT BACKGROUND WITH WHITE BORDER ON ORANGE NAVBAR --- */
 .site-header .nav-actions .btn-donate,
 .site-header .nav-actions .btn-orange,
 .site-header .nav-actions #headerDonateBtn {
   background: transparent !important;
   background-color: transparent !important;
-  border: 2px solid #F29C1C !important;
-  color: #F29C1C !important;
+  border: 2px solid #ffffff !important;
+  color: #ffffff !important;
   box-shadow: none !important;
   border-radius: 0 !important;
   font-weight: 700 !important;
@@ -270,7 +271,7 @@ button, input {
   display: none;
   background: transparent;
   font-size: 1.45rem;
-  color: var(--color-dark);
+  color: #ffffff !important;
   cursor: pointer;
   padding: 0.4rem;
 }
@@ -3294,13 +3295,13 @@ a.btn-outline-white:hover,
   color: #ffffff !important;
 }
 .topbar-item a:hover {
-  color: var(--color-purple-primary) !important;
+  color: var(--color-orange-500) !important;
 }
 .topbar-socials a {
   color: #ffffff !important;
 }
 .topbar-socials a:hover {
-  color: var(--color-purple-primary) !important;
+  color: var(--color-orange-500) !important;
 }
 
 
