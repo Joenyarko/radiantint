@@ -344,5 +344,31 @@ document.addEventListener('DOMContentLoaded', () => {
     revealElements.forEach(el => el.classList.add('revealed'));
   }
 
+  // ===================================================================
+  // 9. AUTO-FOCUS ON CEO IN MOBILE VIEW (Team Perspective Carousel)
+  // ===================================================================
+  function centerCeoCardOnMobile() {
+    if (window.innerWidth <= 992) {
+      const containers = document.querySelectorAll('.team-perspective-container');
+      containers.forEach(container => {
+        const ceoCard = container.querySelector('.depth-ceo');
+        if (ceoCard) {
+          const cardCenter = ceoCard.offsetLeft + (ceoCard.offsetWidth / 2);
+          const containerCenter = container.clientWidth / 2;
+          container.scrollTo({
+            left: Math.max(0, cardCenter - containerCenter),
+            behavior: 'auto'
+          });
+        }
+      });
+    }
+  }
+
+  // Focus immediately and again after fonts/images render
+  centerCeoCardOnMobile();
+  window.addEventListener('load', centerCeoCardOnMobile);
+  window.addEventListener('resize', centerCeoCardOnMobile);
+
 });
+
 
