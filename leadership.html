@@ -27,66 +27,6 @@
   <!-- Font Awesome & Stylesheet -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="assets/css/style.css">
-
-  <style>
-    /* Org Tree Hierarchy matching PDF Page 4 - Squared with no border boxes */
-    .org-tree-wrapper {
-      background: var(--color-white);
-      padding: 3rem 2rem;
-      box-shadow: var(--shadow-lg);
-      margin: 3.5rem auto 0;
-      max-width: 1000px;
-      text-align: center;
-      border: none;
-      border-radius: 0;
-    }
-    .org-node {
-      display: inline-block;
-      padding: 1rem 1.75rem;
-      font-weight: 700;
-      color: var(--color-white);
-      box-shadow: var(--shadow-md);
-      position: relative;
-      margin: 0.5rem;
-      border-radius: 0; /* Squared */
-      border: none;
-    }
-    .org-node.ceo-node {
-      background: linear-gradient(135deg, #f5ad3d 0%, #F29C1C 100%);
-      font-size: 1.15rem;
-      min-width: 240px;
-    }
-    .org-node.hr-node {
-      background: #7250AE;
-      font-size: 1.05rem;
-      min-width: 220px;
-    }
-    .org-node.director-node {
-      background: #472b78;
-      font-size: 0.95rem;
-      min-width: 200px;
-    }
-    .tree-connector-line {
-      width: 2px;
-      height: 35px;
-      background: #cbd5e1;
-      margin: 0 auto;
-    }
-    .tree-horizontal-bar {
-      width: 80%;
-      height: 2px;
-      background: #cbd5e1;
-      margin: 0 auto;
-      position: relative;
-    }
-    .tree-row {
-      display: flex;
-      justify-content: space-around;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      margin-top: 1rem;
-    }
-  </style>
 </head>
 <body>
 
@@ -186,141 +126,117 @@
         </p>
       </div>
 
-      <!-- Perspective Pattern Row (CEO Drops Deep in Center, Surrounding Cards Step Forward in Black & White) -->
-      <div class="team-perspective-container">
-        <div class="team-perspective-row">
-          
-          <!-- Outer Left (Depth 3: forward most, B&W) -->
-          <div class="team-perspective-card depth-3">
-            <div class="team-perspective-img-box">
-              <img src="assets/images/leader_hr.jpg" alt="Doris Yeu - Board Member">
-            </div>
-            <div class="team-perspective-glass">
-              <span class="team-glass-name">Doris Yeu</span>
-              <span class="team-glass-role">Board Member</span>
-            </div>
+      <!-- Professional Executive Leadership Grid (Clean, Corporate, Non-Marketing) -->
+      <div class="leadership-grid">
+        <!-- 1. Benjamin Nyadanu - Founder and President -->
+        <div class="leadership-card president-card">
+          <div class="leadership-card-img-wrap">
+            <img src="assets/images/Peter - CEO.jpeg" alt="Benjamin Nyadanu - Founder and President" class="leadership-card-img">
+            <span class="leadership-card-badge president">Founder & President</span>
           </div>
-
-          <!-- Mid Left (Depth 2: forward stepped, B&W) -->
-          <div class="team-perspective-card depth-2">
-            <div class="team-perspective-img-box">
-              <img src="assets/images/Jerry Ferguson- Board member.jpeg" alt="Jerry Ferguson - Board Member">
+          <div class="leadership-card-info">
+            <h3 class="leadership-card-name">Benjamin Nyadanu</h3>
+            <div class="leadership-card-role">Founder and President</div>
+            <div class="leadership-card-org">
+              <i class="fa-solid fa-shield-halved" style="color: var(--color-orange-500);"></i>
+              <span>Executive Governance</span>
             </div>
-            <div class="team-perspective-glass">
-              <span class="team-glass-name">Jerry Ferguson</span>
-              <span class="team-glass-role">Board Member</span>
-            </div>
-          </div>
-
-          <!-- Near Left (Depth 1: stepped forward, B&W) -->
-          <div class="team-perspective-card depth-1">
-            <div class="team-perspective-img-box">
-              <img src="assets/images/Sylia Ade-Human Resource Manager.jpeg" alt="Sylvia Ade - Human Resource Manager">
-            </div>
-            <div class="team-perspective-glass">
-              <span class="team-glass-name">Sylvia Ade</span>
-              <span class="team-glass-role">Human Resources</span>
-            </div>
-          </div>
-
-          <!-- CENTER (Founder and President Benjamin Nyadanu: DROPS DEEP, BRIGHT & NORMAL COLOR WITHOUT FILTER) -->
-          <div class="team-perspective-card depth-ceo">
-            <div class="team-perspective-img-box">
-              <img src="assets/images/Peter - CEO.jpeg" alt="Benjamin Nyadanu - Founder and President">
-            </div>
-            <div class="team-perspective-glass ceo-glass">
-              <span class="team-glass-name">Benjamin Nyadanu</span>
-              <span class="team-glass-role">Founder and President</span>
-            </div>
-          </div>
-
-          <!-- Near Right (Depth 1: stepped forward, B&W) -->
-          <div class="team-perspective-card depth-1">
-            <div class="team-perspective-img-box">
-              <img src="assets/images/Samuel Asiedu - Director.jpeg" alt="Samuel Asiedu - Director">
-            </div>
-            <div class="team-perspective-glass">
-              <span class="team-glass-name">Samuel Asiedu</span>
-              <span class="team-glass-role">Director</span>
-            </div>
-          </div>
-
-          <!-- Mid Right (Depth 2: forward stepped, B&W) -->
-          <div class="team-perspective-card depth-2">
-            <div class="team-perspective-img-box">
-              <img src="assets/images/leader_finance.jpg" alt="Dr. Daniel Akapo - Board Member">
-            </div>
-            <div class="team-perspective-glass">
-              <span class="team-glass-name">Dr. Daniel Akapo</span>
-              <span class="team-glass-role">Board Member</span>
-            </div>
-          </div>
-
-          <!-- Outer Right (Depth 3: forward most, B&W) -->
-          <div class="team-perspective-card depth-3">
-            <div class="team-perspective-img-box">
-              <img src="assets/images/leader_auditor.jpg" alt="Nana Osei - Field Operations Lead">
-            </div>
-            <div class="team-perspective-glass">
-              <span class="team-glass-name">Nana Osei</span>
-              <span class="team-glass-role">Field Operations</span>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- ORGANIZATIONAL HIERARCHY CHART (Squared, No Border Box) -->
-      <div class="org-tree-wrapper">
-        <span class="section-tag purple" style="margin-bottom: 0.5rem;">Governance Structure</span>
-        <h3 style="font-family: var(--font-heading); font-size: 1.8rem; color: var(--color-purple-900); margin-bottom: 0.5rem;">
-          RTI Organizational Hierarchy
-        </h3>
-        <p style="font-size: 0.95rem; color: var(--color-slate-600); margin-bottom: 2rem;">
-          Direct institutional framework from the Radiant Trust International presentation profile
-        </p>
-
-        <!-- Founder and President Level -->
-        <div>
-          <div class="org-node ceo-node">
-            <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9;">Founder and President</div>
-            Benjamin Nyadanu
           </div>
         </div>
 
-        <div class="tree-connector-line"></div>
-
-        <!-- HR Level -->
-        <div>
-          <div class="org-node hr-node">
-            <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9;">Human Resource Manager</div>
-            Sylvia Ade
+        <!-- 2. Samuel Asiedu - Director -->
+        <div class="leadership-card">
+          <div class="leadership-card-img-wrap">
+            <img src="assets/images/Samuel Asiedu - Director.jpeg" alt="Samuel Asiedu - Director" class="leadership-card-img">
+            <span class="leadership-card-badge">Director</span>
+          </div>
+          <div class="leadership-card-info">
+            <h3 class="leadership-card-name">Samuel Asiedu</h3>
+            <div class="leadership-card-role">Director</div>
+            <div class="leadership-card-org">
+              <i class="fa-solid fa-briefcase" style="color: var(--color-purple-primary);"></i>
+              <span>Institutional Direction</span>
+            </div>
           </div>
         </div>
 
-        <div class="tree-connector-line"></div>
-        <div class="tree-horizontal-bar"></div>
-
-        <!-- Directorate & Board Level -->
-        <div class="tree-row">
-          <div class="org-node director-node">
-            <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9;">Director</div>
-            Samuel Asiedu
+        <!-- 3. Jerry Ferguson - Board Member -->
+        <div class="leadership-card">
+          <div class="leadership-card-img-wrap">
+            <img src="assets/images/Jerry Ferguson- Board member.jpeg" alt="Jerry Ferguson - Board Member" class="leadership-card-img">
+            <span class="leadership-card-badge">Board Member</span>
           </div>
-
-          <div class="org-node director-node">
-            <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9;">Board Member</div>
-            Jerry Ferguson
+          <div class="leadership-card-info">
+            <h3 class="leadership-card-name">Jerry Ferguson</h3>
+            <div class="leadership-card-role">Board Member</div>
+            <div class="leadership-card-org">
+              <i class="fa-solid fa-landmark" style="color: var(--color-purple-primary);"></i>
+              <span>Board of Trustees</span>
+            </div>
           </div>
+        </div>
 
-          <div class="org-node director-node">
-            <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9;">Board Member</div>
-            Dr. Daniel Akapo
+        <!-- 4. Dr. Daniel Akapo - Board Member -->
+        <div class="leadership-card">
+          <div class="leadership-card-img-wrap">
+            <img src="assets/images/leader_finance.jpg" alt="Dr. Daniel Akapo - Board Member" class="leadership-card-img">
+            <span class="leadership-card-badge">Board Member</span>
           </div>
+          <div class="leadership-card-info">
+            <h3 class="leadership-card-name">Dr. Daniel Akapo</h3>
+            <div class="leadership-card-role">Board Member</div>
+            <div class="leadership-card-org">
+              <i class="fa-solid fa-landmark" style="color: var(--color-purple-primary);"></i>
+              <span>Board of Trustees</span>
+            </div>
+          </div>
+        </div>
 
-          <div class="org-node director-node">
-            <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9;">Board Member</div>
-            Doris Yeu
+        <!-- 5. Sylvia Ade - Human Resource Manager -->
+        <div class="leadership-card">
+          <div class="leadership-card-img-wrap">
+            <img src="assets/images/Sylia Ade-Human Resource Manager.jpeg" alt="Sylvia Ade - Human Resource Manager" class="leadership-card-img">
+            <span class="leadership-card-badge">Human Resources</span>
+          </div>
+          <div class="leadership-card-info">
+            <h3 class="leadership-card-name">Sylvia Ade</h3>
+            <div class="leadership-card-role">Human Resource Manager</div>
+            <div class="leadership-card-org">
+              <i class="fa-solid fa-users" style="color: var(--color-purple-primary);"></i>
+              <span>People & Talent Operations</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Doris Yeu - Financial Controller -->
+        <div class="leadership-card">
+          <div class="leadership-card-img-wrap">
+            <img src="assets/images/leader_hr.jpg" alt="Doris Yeu - Financial Controller" class="leadership-card-img">
+            <span class="leadership-card-badge">Financial Controller</span>
+          </div>
+          <div class="leadership-card-info">
+            <h3 class="leadership-card-name">Doris Yeu</h3>
+            <div class="leadership-card-role">Financial Controller</div>
+            <div class="leadership-card-org">
+              <i class="fa-solid fa-chart-line" style="color: var(--color-purple-primary);"></i>
+              <span>Financial & Audit Oversight</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. Lugu - Head of Operations -->
+        <div class="leadership-card">
+          <div class="leadership-card-img-wrap">
+            <img src="assets/images/leader_auditor.jpg" alt="Lugu - Head of Operations" class="leadership-card-img">
+            <span class="leadership-card-badge">Head of Operations</span>
+          </div>
+          <div class="leadership-card-info">
+            <h3 class="leadership-card-name">Lugu</h3>
+            <div class="leadership-card-role">Head of Operations</div>
+            <div class="leadership-card-org">
+              <i class="fa-solid fa-compass" style="color: var(--color-purple-primary);"></i>
+              <span>Field & Regional Deployments</span>
+            </div>
           </div>
         </div>
       </div>
@@ -512,7 +428,7 @@
           <div class="form-row-2">
             <div class="form-group">
               <label for="volPhone" class="form-label">Phone / WhatsApp *</label>
-              <input type="tel" id="volPhone" name="phone" class="form-control" placeholder="+233 26 474 7744" required>
+              <input type="tel" id="volPhone" name="phone" class="form-control" placeholder="+233 50 123 4567" required>
             </div>
             <div class="form-group">
               <label for="volRegion" class="form-label">Primary Region / Location *</label>
