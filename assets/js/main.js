@@ -4,6 +4,19 @@
  * Controls: Africa Map Photo Switcher, Modals, Drawer, Counters & Copy Actions
  */
 
+// Always open pages at the top (unless the URL targets a #section)
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+if (!window.location.hash) {
+  window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+}
+window.addEventListener('pageshow', (e) => {
+  if (e.persisted && !window.location.hash) {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }
+});
+
 document.addEventListener('DOMContentLoaded', () => {
 
   // ===================================================================
@@ -345,29 +358,25 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ===================================================================
-  // 9. AUTO-FOCUS ON CEO IN MOBILE VIEW (Team Perspective Carousel)
+  // 9. SCROLL-TO-TOP BUTTON (All Pages)
   // ===================================================================
-  function centerCeoCardOnMobile() {
-    if (window.innerWidth <= 992) {
-      const containers = document.querySelectorAll('.team-perspective-container');
-      containers.forEach(container => {
-        const ceoCard = container.querySelector('.depth-ceo');
-        if (ceoCard) {
-          const cardCenter = ceoCard.offsetLeft + (ceoCard.offsetWidth / 2);
-          const containerCenter = container.clientWidth / 2;
-          container.scrollTo({
-            left: Math.max(0, cardCenter - containerCenter),
-            behavior: 'auto'
-          });
-        }
-      });
-    }
-  }
+  const scrollTopBtn = document.createElement('button');
+  scrollTopBtn.type = 'button';
+  scrollTopBtn.className = 'scroll-top-btn';
+  scrollTopBtn.id = 'scrollTopBtn';
+  scrollTopBtn.setAttribute('aria-label', 'Scroll to top');
+  scrollTopBtn.innerHTML = '<i class="fa-solid fa-arrow-up"></i>';
+  document.body.appendChild(scrollTopBtn);
 
-  // Focus immediately and again after fonts/images render
-  centerCeoCardOnMobile();
-  window.addEventListener('load', centerCeoCardOnMobile);
-  window.addEventListener('resize', centerCeoCardOnMobile);
+  function toggleScrollTopBtn() {
+    scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
+  }
+  window.addEventListener('scroll', toggleScrollTopBtn, { passive: true });
+  toggleScrollTopBtn();
+
+  scrollTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 
 });
 
