@@ -3915,3 +3915,7 @@ a.btn-outline-white:hover,
 .scroll-top-btn:hover {
   background: var(--color-orange-500, #F29C1C);
 }
+
+.scroll-top-btn {
+  border-radius: 50% !important;
+}
