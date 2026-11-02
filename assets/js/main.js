@@ -164,9 +164,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ===================================================================
-  // 2C. IN-PAGE SEAMLESS FORM SUBMISSION (No Third-Party Screens)
-  // Submits cleanly via AJAX without any external redirect or captcha page.
-  // Delivers all details straight to info@radianttrust.org.
+  // 2C. IN-PAGE SEAMLESS FORM SUBMISSION (Hostinger SMTP via Vercel)
+  // Sends through /api/send using Hostinger SMTP credentials for official
+  // "Radiant Trust International" <info@radianttrust.org> sender display.
   // ===================================================================
 
   // Volunteer Form Submission Handler
@@ -191,31 +191,56 @@ document.addEventListener('DOMContentLoaded', () => {
       volSubmitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin" style="margin-right: 8px;"></i> Submitting Application...';
     }
 
-    const payload = {
-      name: fullName,
-      email: email,
-      phone: phone,
-      region: region,
-      interest_sector: sector,
-      availability: availability,
-      experience_notes: message,
-      _subject: `New Volunteer Application: ${fullName} - Radiant Trust International`,
-      _replyto: email,
-      _template: 'table',
-      _captcha: 'false'
-    };
-
+    let sent = false;
     try {
-      await fetch('https://formsubmit.co/ajax/info@radianttrust.org', {
+      const res = await fetch('/api/send', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(payload)
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'volunteer',
+          name: fullName,
+          email: email,
+          phone: phone,
+          region: region,
+          sector: sector,
+          availability: availability,
+          message: message
+        })
       });
-    } catch (err) {
-      console.warn('Submission fallback:', err);
+      const data = await res.json().catch(() => null);
+      if (res.ok && data?.success) {
+        sent = true;
+      }
+    } catch (apiErr) {
+      console.warn('Primary Hostinger SMTP attempt:', apiErr);
+    }
+
+    // Resilient fallback if SMTP_PASS is still being configured on Vercel
+    if (!sent) {
+      try {
+        await fetch('https://formsubmit.co/ajax/info@radianttrust.org', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            name: fullName,
+            email: email,
+            phone: phone,
+            region: region,
+            interest_sector: sector,
+            availability: availability,
+            experience_notes: message,
+            _subject: `New Volunteer Application: ${fullName} - Radiant Trust International`,
+            _replyto: email,
+            _template: 'table',
+            _captcha: 'false'
+          })
+        });
+      } catch (fallbackErr) {
+        console.warn('Submission fallback:', fallbackErr);
+      }
     }
 
     if (volSubmitBtn) {
@@ -263,29 +288,51 @@ document.addEventListener('DOMContentLoaded', () => {
       contactSubmitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin" style="margin-right: 8px;"></i> Sending Message...';
     }
 
-    const payload = {
-      name: fullName,
-      email: email,
-      phone: phone,
-      topic: subjectText,
-      message: message,
-      _subject: `Website Inquiry: ${subjectText} from ${fullName} - Radiant Trust`,
-      _replyto: email,
-      _template: 'table',
-      _captcha: 'false'
-    };
-
+    let sent = false;
     try {
-      await fetch('https://formsubmit.co/ajax/info@radianttrust.org', {
+      const res = await fetch('/api/send', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(payload)
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'contact',
+          name: fullName,
+          email: email,
+          phone: phone,
+          topic: subjectText,
+          message: message
+        })
       });
-    } catch (err) {
-      console.warn('Submission fallback:', err);
+      const data = await res.json().catch(() => null);
+      if (res.ok && data?.success) {
+        sent = true;
+      }
+    } catch (apiErr) {
+      console.warn('Primary Hostinger SMTP contact attempt:', apiErr);
+    }
+
+    if (!sent) {
+      try {
+        await fetch('https://formsubmit.co/ajax/info@radianttrust.org', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            name: fullName,
+            email: email,
+            phone: phone,
+            topic: subjectText,
+            message: message,
+            _subject: `Website Inquiry: ${subjectText} from ${fullName} - Radiant Trust`,
+            _replyto: email,
+            _template: 'table',
+            _captcha: 'false'
+          })
+        });
+      } catch (fallbackErr) {
+        console.warn('Submission fallback:', fallbackErr);
+      }
     }
 
     if (contactSubmitBtn) {

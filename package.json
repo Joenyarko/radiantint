@@ -1,0 +1,11 @@
+{
+  "name": "radiant-trust-international",
+  "version": "1.0.0",
+  "description": "Radiant Trust International (RTI Ghana) Official Website",
+  "scripts": {
+    "start": "serve ."
+  },
+  "dependencies": {
+    "nodemailer": "^6.10.1"
+  }
+}
