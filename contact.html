@@ -245,40 +245,46 @@
             Fill out the form below and an RTI team director will respond to you within 24 business hours.
           </p>
 
-          <form id="contactForm">
+          <form id="contactForm" action="https://formsubmit.co/info@radianttrust.org" method="POST">
+            <!-- FormSubmit Configuration for Direct Email & Instant Auto-Reply -->
+            <input type="hidden" name="_subject" value="New Website Inquiry - Radiant Trust International">
+            <input type="hidden" name="_autoresponse" value="Thank you for contacting Radiant Trust International (RTI Ghana). We have received your inquiry. A representative from our secretariat in Tantra Hills will review your message and reply promptly within 24 business hours. If you require immediate assistance, you can also reach us on WhatsApp at +233 50 087 0979. Warm regards, Radiant Trust International Secretariat (www.radianttrust.org).">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_next" id="contactRedirectNext" value="https://radianttrust.org/contact.html?contact_success=1">
+
             <div class="form-row-grid">
               <div class="form-group">
                 <label for="contactFullName">Full Name *</label>
-                <input type="text" id="contactFullName" class="form-control" placeholder="Kwame Mensah" required>
+                <input type="text" id="contactFullName" name="name" class="form-control" placeholder="Kwame Mensah" required>
               </div>
               <div class="form-group">
                 <label for="contactEmail">Email Address *</label>
-                <input type="email" id="contactEmail" class="form-control" placeholder="kwame@example.com" required>
+                <input type="email" id="contactEmail" name="email" class="form-control" placeholder="kwame@example.com" required>
               </div>
             </div>
 
             <div class="form-row-grid">
               <div class="form-group">
                 <label for="contactPhone">Phone Number</label>
-                <input type="tel" id="contactPhone" class="form-control" placeholder="0500000000">
+                <input type="tel" id="contactPhone" name="phone" class="form-control" placeholder="0500000000">
               </div>
               <div class="form-group">
                 <label for="contactSubject">Inquiry Topic *</label>
-                <select id="contactSubject" class="form-control" required>
+                <select id="contactSubject" name="subject" class="form-control" required>
                   <option value="">Select a topic...</option>
-                  <option value="partnership">Institutional Partnership & Funding</option>
-                  <option value="donation">Donation & Philanthropy Inquiries</option>
-                  <option value="agri-project">Agro-Ecology & Rural Projects</option>
-                  <option value="water-project">Clean Water Borehole Projects</option>
-                  <option value="volunteer">Volunteer & Field Work</option>
-                  <option value="general">General Information</option>
+                  <option value="Institutional Partnership & Funding">Institutional Partnership & Funding</option>
+                  <option value="Donation & Philanthropy Inquiries">Donation & Philanthropy Inquiries</option>
+                  <option value="Agro-Ecology & Rural Projects">Agro-Ecology & Rural Projects</option>
+                  <option value="Clean Water Borehole Projects">Clean Water Borehole Projects</option>
+                  <option value="Volunteer & Field Work">Volunteer & Field Work</option>
+                  <option value="General Information">General Information</option>
                 </select>
               </div>
             </div>
 
             <div class="form-group">
               <label for="contactMessage">Your Message *</label>
-              <textarea id="contactMessage" class="form-control" rows="5" placeholder="Share details about your inquiry or proposal..." required></textarea>
+              <textarea id="contactMessage" name="message" class="form-control" rows="5" placeholder="Share details about your inquiry or proposal..." required></textarea>
             </div>
 
             <button type="submit" class="btn btn-donate" id="contactSubmitBtn" style="width: 100%; padding: 1rem; font-size: 1.05rem;">
@@ -528,11 +534,17 @@
           Lend your hands, professional skills, and passion to rural communities across Ghana's 16 regions. Our volunteer team will review your application and match you with active grassroots projects.
         </p>
 
-        <form id="volunteerForm" class="volunteer-form">
+        <form id="volunteerForm" class="volunteer-form" action="https://formsubmit.co/info@radianttrust.org" method="POST">
+          <!-- FormSubmit Configuration for Direct Email & Instant Auto-Reply -->
+          <input type="hidden" name="_subject" value="New Volunteer Application - Radiant Trust International">
+          <input type="hidden" name="_autoresponse" value="Medasi! (Thank you). We have successfully received your volunteer and placement application for Radiant Trust International (RTI Ghana). Our volunteer coordination team will review your profile and reach out via email or WhatsApp within 48 hours. If you have any urgent questions, reach us on WhatsApp at +233 50 087 0979 or reply directly to this email. Warm regards, Radiant Trust International Secretariat (www.radianttrust.org).">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_next" id="volRedirectNext" value="https://radianttrust.org/contact.html?volunteer_success=1">
+
           <div class="form-row-2">
             <div class="form-group">
               <label for="volFullName" class="form-label">Full Name *</label>
-              <input type="text" id="volFullName" name="fullName" class="form-control" placeholder="e.g. Kwame Mensah" required>
+              <input type="text" id="volFullName" name="name" class="form-control" placeholder="e.g. Kwame Mensah" required>
             </div>
             <div class="form-group">
               <label for="volEmail" class="form-label">Email Address *</label>
