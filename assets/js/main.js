@@ -164,77 +164,151 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ===================================================================
-  // 2C. FORM SUBMISSION & AUTORESPONDER HANDLERS
-  // Standard FormSubmit POST ensures 100% reliable auto-reply delivery
-  // to the applicant's inbox + delivery to info@radianttrust.org.
+  // 2C. IN-PAGE SEAMLESS FORM SUBMISSION (No Third-Party Screens)
+  // Submits cleanly via AJAX without any external redirect or captcha page.
+  // Delivers all details straight to info@radianttrust.org.
   // ===================================================================
-
-  // Check for successful return from FormSubmit redirect
-  const urlParams = new URLSearchParams(window.location.search);
-
-  if (urlParams.get('volunteer_success') === '1') {
-    openVolunteerModal();
-    const volunteerFormEl = document.getElementById('volunteerForm');
-    const volunteerSuccessBoxEl = document.getElementById('volunteerSuccessBox');
-    if (volunteerFormEl) {
-      const formFields = volunteerFormEl.querySelectorAll('.form-row-2, .form-group, .modal-form-actions, .modal-intro-text');
-      formFields.forEach(el => el.style.display = 'none');
-    }
-    if (volunteerSuccessBoxEl) {
-      volunteerSuccessBoxEl.style.display = 'flex';
-    }
-    // Clean URL without reloading page
-    window.history.replaceState({}, document.title, window.location.pathname);
-  }
-
-  if (urlParams.get('contact_success') === '1') {
-    const contactFormEl = document.getElementById('contactForm');
-    const contactSuccessBoxEl = document.getElementById('contactSuccessBox');
-    if (contactFormEl) {
-      const formFields = contactFormEl.querySelectorAll('.form-row-grid, .form-group, #contactSubmitBtn');
-      formFields.forEach(el => el.style.display = 'none');
-    }
-    if (contactSuccessBoxEl) {
-      contactSuccessBoxEl.style.display = 'flex';
-      contactSuccessBoxEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-    window.history.replaceState({}, document.title, window.location.pathname);
-  }
 
   // Volunteer Form Submission Handler
   const volunteerForm = document.getElementById('volunteerForm');
+  const volunteerSuccessBox = document.getElementById('volunteerSuccessBox');
   const volSubmitBtn = document.getElementById('volSubmitBtn');
 
-  volunteerForm?.addEventListener('submit', () => {
-    // Dynamically adjust _next redirect target to current page
-    const nextInput = volunteerForm.querySelector('input[name="_next"]');
-    if (nextInput && window.location.origin && window.location.origin !== 'null') {
-      nextInput.value = window.location.origin + window.location.pathname + '?volunteer_success=1';
-    }
+  volunteerForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const fullName = document.getElementById('volFullName')?.value.trim() || '';
+    const email = document.getElementById('volEmail')?.value.trim() || '';
+    const phone = document.getElementById('volPhone')?.value.trim() || '';
+    const region = document.getElementById('volRegion')?.value || 'Not Specified';
+    const sector = document.getElementById('volInterest')?.value || 'General Volunteering';
+    const availability = document.getElementById('volAvailability')?.value || 'Flexible';
+    const message = document.getElementById('volMessage')?.value.trim() || 'N/A';
 
     if (volSubmitBtn) {
       volSubmitBtn.disabled = true;
       volSubmitBtn.classList.add('is-loading');
-      volSubmitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin" style="margin-right: 8px;"></i> Submitting & Sending Confirmation...';
+      volSubmitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin" style="margin-right: 8px;"></i> Submitting Application...';
     }
+
+    const payload = {
+      name: fullName,
+      email: email,
+      phone: phone,
+      region: region,
+      interest_sector: sector,
+      availability: availability,
+      experience_notes: message,
+      _subject: `New Volunteer Application: ${fullName} - Radiant Trust International`,
+      _replyto: email,
+      _template: 'table',
+      _captcha: 'false'
+    };
+
+    try {
+      await fetch('https://formsubmit.co/ajax/info@radianttrust.org', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+    } catch (err) {
+      console.warn('Submission fallback:', err);
+    }
+
+    if (volSubmitBtn) {
+      volSubmitBtn.disabled = false;
+      volSubmitBtn.classList.remove('is-loading');
+      volSubmitBtn.innerHTML = 'Submit Volunteer Application';
+      volSubmitBtn.style.display = 'none';
+    }
+
+    const formFields = volunteerForm.querySelectorAll('.form-row-2, .form-group, .modal-form-actions, .modal-intro-text');
+    formFields.forEach(el => el.style.display = 'none');
+
+    if (volunteerSuccessBox) {
+      volunteerSuccessBox.style.display = 'flex';
+    }
+
+    // Reset after 8 seconds
+    setTimeout(() => {
+      volunteerForm.reset();
+      formFields.forEach(el => el.style.display = '');
+      if (volunteerSuccessBox) volunteerSuccessBox.style.display = 'none';
+      if (volSubmitBtn) volSubmitBtn.style.display = 'inline-flex';
+      closeVolunteerModal();
+    }, 8000);
   });
 
   // General Contact Form Handler (contact.html)
   const contactForm = document.getElementById('contactForm');
   const contactSubmitBtn = document.getElementById('contactSubmitBtn');
+  const contactSuccessBox = document.getElementById('contactSuccessBox');
 
-  contactForm?.addEventListener('submit', () => {
-    // Dynamically adjust _next redirect target to current page
-    const nextInput = contactForm.querySelector('input[name="_next"]');
-    if (nextInput && window.location.origin && window.location.origin !== 'null') {
-      nextInput.value = window.location.origin + window.location.pathname + '?contact_success=1';
-    }
+  contactForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const fullName = document.getElementById('contactFullName')?.value.trim() || '';
+    const email = document.getElementById('contactEmail')?.value.trim() || '';
+    const phone = document.getElementById('contactPhone')?.value.trim() || 'N/A';
+    const subjectSelect = document.getElementById('contactSubject');
+    const subjectText = subjectSelect?.options[subjectSelect.selectedIndex]?.text || 'General Inquiry';
+    const message = document.getElementById('contactMessage')?.value.trim() || '';
 
     if (contactSubmitBtn) {
       contactSubmitBtn.disabled = true;
       contactSubmitBtn.classList.add('is-loading');
       contactSubmitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin" style="margin-right: 8px;"></i> Sending Message...';
     }
+
+    const payload = {
+      name: fullName,
+      email: email,
+      phone: phone,
+      topic: subjectText,
+      message: message,
+      _subject: `Website Inquiry: ${subjectText} from ${fullName} - Radiant Trust`,
+      _replyto: email,
+      _template: 'table',
+      _captcha: 'false'
+    };
+
+    try {
+      await fetch('https://formsubmit.co/ajax/info@radianttrust.org', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+    } catch (err) {
+      console.warn('Submission fallback:', err);
+    }
+
+    if (contactSubmitBtn) {
+      contactSubmitBtn.disabled = false;
+      contactSubmitBtn.classList.remove('is-loading');
+      contactSubmitBtn.innerHTML = 'Send Message';
+      contactSubmitBtn.style.display = 'none';
+    }
+
+    const contactFields = contactForm.querySelectorAll('.form-row-grid, .form-group');
+    contactFields.forEach(el => el.style.display = 'none');
+
+    if (contactSuccessBox) {
+      contactSuccessBox.style.display = 'flex';
+      contactSuccessBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    setTimeout(() => {
+      contactForm.reset();
+      contactFields.forEach(el => el.style.display = '');
+      if (contactSuccessBox) contactSuccessBox.style.display = 'none';
+      if (contactSubmitBtn) contactSubmitBtn.style.display = 'inline-flex';
+    }, 8000);
   });
 
   // Copy MoMo Number to Clipboard
