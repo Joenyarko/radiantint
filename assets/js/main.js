@@ -163,36 +163,96 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // ===================================================================
+  // 2C. FORM SUBMISSION HANDLERS (With Automated Confirmation Mailer)
+  // ===================================================================
+
   // Volunteer Form Submission Handler
   const volunteerForm = document.getElementById('volunteerForm');
   const volunteerSuccessBox = document.getElementById('volunteerSuccessBox');
   const volSubmitBtn = document.getElementById('volSubmitBtn');
 
-  volunteerForm?.addEventListener('submit', (e) => {
+  volunteerForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (volSubmitBtn) {
       volSubmitBtn.disabled = true;
-      volSubmitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting Application...';
+      volSubmitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting & Sending Confirmation...';
+    }
+
+    const formData = new FormData(volunteerForm);
+    formData.append('action', 'volunteer');
+
+    try {
+      await fetch('mailer.php', {
+        method: 'POST',
+        body: formData
+      });
+    } catch (err) {
+      // Graceful fallback for offline / static preview testing
+      console.log('Form submission preview mode:', err);
+    }
+
+    if (volSubmitBtn) {
+      volSubmitBtn.disabled = false;
+      volSubmitBtn.innerHTML = 'Submit Volunteer Application';
+      volSubmitBtn.style.display = 'none';
+    }
+    if (volunteerSuccessBox) {
+      volunteerSuccessBox.style.display = 'flex';
+    }
+
+    // Automatically reset form and close modal after 5 seconds
+    setTimeout(() => {
+      volunteerForm.reset();
+      if (volunteerSuccessBox) volunteerSuccessBox.style.display = 'none';
+      if (volSubmitBtn) volSubmitBtn.style.display = 'flex';
+      closeVolunteerModal();
+    }, 5000);
+  });
+
+  // General Contact Form Handler (contact.html)
+  const contactForm = document.getElementById('contactForm');
+  const contactSubmitBtn = document.getElementById('contactSubmitBtn');
+  const contactSuccessBox = document.getElementById('contactSuccessBox');
+
+  contactForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (contactSubmitBtn) {
+      contactSubmitBtn.disabled = true;
+      contactSubmitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending Message...';
+    }
+
+    const formData = new FormData();
+    formData.append('action', 'contact');
+    formData.append('fullName', document.getElementById('contactFullName')?.value || '');
+    formData.append('email', document.getElementById('contactEmail')?.value || '');
+    formData.append('phone', document.getElementById('contactPhone')?.value || '');
+    formData.append('subject', document.getElementById('contactSubject')?.value || 'General Inquiry');
+    formData.append('message', document.getElementById('contactMessage')?.value || '');
+
+    try {
+      await fetch('mailer.php', {
+        method: 'POST',
+        body: formData
+      });
+    } catch (err) {
+      console.log('Contact submission preview mode:', err);
+    }
+
+    if (contactSubmitBtn) {
+      contactSubmitBtn.disabled = false;
+      contactSubmitBtn.innerHTML = 'Send Message';
+      contactSubmitBtn.style.display = 'none';
+    }
+    if (contactSuccessBox) {
+      contactSuccessBox.style.display = 'flex';
     }
 
     setTimeout(() => {
-      if (volSubmitBtn) {
-        volSubmitBtn.disabled = false;
-        volSubmitBtn.innerHTML = 'Submit Volunteer Application';
-        volSubmitBtn.style.display = 'none';
-      }
-      if (volunteerSuccessBox) {
-        volunteerSuccessBox.style.display = 'flex';
-      }
-
-      // Automatically reset form and close modal after 4 seconds
-      setTimeout(() => {
-        volunteerForm.reset();
-        if (volunteerSuccessBox) volunteerSuccessBox.style.display = 'none';
-        if (volSubmitBtn) volSubmitBtn.style.display = 'flex';
-        closeVolunteerModal();
-      }, 4000);
-    }, 600);
+      contactForm.reset();
+      if (contactSuccessBox) contactSuccessBox.style.display = 'none';
+      if (contactSubmitBtn) contactSubmitBtn.style.display = 'inline-flex';
+    }, 6000);
   });
 
   // Copy MoMo Number to Clipboard

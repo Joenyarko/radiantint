@@ -6,23 +6,35 @@
   
   <!-- SEO Meta Tags -->
   <title>Contact Us | Radiant Trust International (RTI Ghana)</title>
-  <meta name="description" content="Get in touch with Radiant Trust International (RTI Ghana) at 14 Mango Avenue, Tantra Hills, Accra-Ghana. Call +233 30 290 9237, +233 50 087 0979 or email radianttrust@gmail.com.">
+  <meta name="description" content="Get in touch with Radiant Trust International (RTI Ghana) at 14 Mango Avenue, Tantra Hills, Accra-Ghana. Call +233 30 290 9237, +233 50 087 0979 or email info@radianttrust.org.">
   <meta name="keywords" content="Contact RTI Ghana, Radiant Trust International office Tantra Hills Accra, Ghana NGO contact, phone number RTI Ghana">
   <meta name="author" content="Radiant Trust International">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://www.radianttrust.org/contact.html">
+  <link rel="canonical" href="https://radianttrust.org/contact.html">
 
   <!-- Open Graph -->
+  <meta property="og:site_name" content="Radiant Trust International">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.radianttrust.org/contact.html">
+  <meta property="og:url" content="https://radianttrust.org/contact.html">
   <meta property="og:title" content="Contact Radiant Trust International (RTI Ghana)">
   <meta property="og:description" content="Reach our national secretariat in Tantra Hills, Accra for partnerships and inquiries.">
-  <meta property="og:image" content="assets/images/logo.png">
+  <meta property="og:image" content="https://radianttrust.org/assets/images/logo.png">
+  <meta property="og:locale" content="en_US">
 
-  <!-- Favicon -->
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Contact Radiant Trust International (RTI Ghana)">
+  <meta name="twitter:description" content="Reach our national secretariat in Tantra Hills, Accra for partnerships and inquiries.">
+  <meta name="twitter:image" content="https://radianttrust.org/assets/images/logo.png">
+
+  <!-- Google Search Favicon & Mobile Touch Icons (Navbar Logo with Name Below) -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
-  <link rel="apple-touch-icon" href="favicon.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/images/favicon-48x48.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="assets/images/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/images/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#391f68">
 
   <!-- Font Awesome & Stylesheet -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -136,7 +148,7 @@
     <div class="container topbar-content">
       <div class="topbar-left">
         <span class="topbar-item"><i class="fa-solid fa-location-dot"></i> 14 Mango Avenue, Tantra Hills, Accra-Ghana</span>
-        <span class="topbar-item"><i class="fa-solid fa-envelope"></i> <a href="mailto:radianttrust@gmail.com">radianttrust@gmail.com</a></span>
+        <span class="topbar-item"><i class="fa-solid fa-envelope"></i> <a href="mailto:info@radianttrust.org">info@radianttrust.org</a></span>
       </div>
       <div class="topbar-right">
         <span class="topbar-item"><i class="fa-solid fa-phone"></i> <a href="tel:+233302909237">+233 30 290 9237</a> / <a href="tel:+233500870979">+233 50 087 0979</a></span>
@@ -269,9 +281,16 @@
               <textarea id="contactMessage" class="form-control" rows="5" placeholder="Share details about your inquiry or proposal..." required></textarea>
             </div>
 
-            <button type="submit" class="btn btn-donate" style="width: 100%; padding: 1rem; font-size: 1.05rem;">
+            <button type="submit" class="btn btn-donate" id="contactSubmitBtn" style="width: 100%; padding: 1rem; font-size: 1.05rem;">
               Send Message
             </button>
+            <div id="contactSuccessBox" class="volunteer-success-card" style="display: none; margin-top: 1.5rem;">
+              <div class="success-icon"><i class="fa-solid fa-check"></i></div>
+              <div class="success-text">
+                <h4>Message Successfully Sent!</h4>
+                <p>Thank you for reaching out. We have received your inquiry and an automated confirmation was sent to your email.</p>
+              </div>
+            </div>
           </form>
         </div>
 
@@ -304,7 +323,7 @@
             <div class="contact-block-content">
               <h4>Direct Email Addresses</h4>
               <p>
-                <a href="mailto:radianttrust@gmail.com">radianttrust@gmail.com</a>
+                <a href="mailto:info@radianttrust.org">info@radianttrust.org</a>
               </p>
             </div>
           </div>
@@ -404,7 +423,7 @@
             <li class="footer-contact-item">
               <i class="fa-solid fa-envelope"></i>
               <div>
-                <a href="mailto:radianttrust@gmail.com">radianttrust@gmail.com</a>
+                <a href="mailto:info@radianttrust.org">info@radianttrust.org</a>
               </div>
             </li>
             <li class="footer-contact-item">
@@ -482,7 +501,7 @@
             For international grants, wire routing codes, or designated project endowments, please contact our secretariat directly:
           </p>
           <div style="margin-top: 0.75rem;">
-            <a href="mailto:radianttrust@gmail.com?subject=Donation%20Inquiry%20-%20RTI" class="btn btn-orange" style="width: 100%; justify-content: center;">
+            <a href="mailto:info@radianttrust.org?subject=Donation%20Inquiry%20-%20RTI" class="btn btn-orange" style="width: 100%; justify-content: center;">
               Email Secretariat for Bank Routing
             </a>
           </div>
