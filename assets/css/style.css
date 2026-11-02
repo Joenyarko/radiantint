@@ -371,6 +371,31 @@ a.btn-donate:hover,
   box-shadow: 0 8px 24px rgba(114, 80, 174, 0.45) !important;
 }
 
+/* Button Loading & Disabled States */
+button:disabled,
+.btn:disabled,
+.btn-orange:disabled,
+.btn.is-loading,
+.btn-orange.is-loading,
+.btn-donate:disabled,
+.btn-donate.is-loading {
+  opacity: 0.88 !important;
+  cursor: wait !important;
+  pointer-events: none !important;
+  transform: none !important;
+  box-shadow: 0 4px 14px rgba(242, 156, 28, 0.25) !important;
+  background: linear-gradient(90deg, #F29C1C 0%, #e08b10 50%, #F29C1C 100%) !important;
+  background-size: 200% 100% !important;
+  animation: btnPulseLoading 1.2s infinite ease-in-out !important;
+}
+
+@keyframes btnPulseLoading {
+  0% { opacity: 0.9; filter: brightness(1); }
+  50% { opacity: 0.68; filter: brightness(1.15); }
+  100% { opacity: 0.9; filter: brightness(1); }
+}
+
+
 /* Outline Buttons: Discover Our Work, Learn More */
 .btn-outline,
 .btn-outline-pill,

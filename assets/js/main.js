@@ -164,7 +164,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ===================================================================
-  // 2C. FORM SUBMISSION HANDLERS (With Automated Confirmation Mailer)
+  // 2C. FORM SUBMISSION HANDLERS (Vercel-Compatible & Auto-Responder)
+  // Uses FormSubmit AJAX API delivering directly to info@radianttrust.org
+  // with automated confirmation emails to applicants & visitors.
   // ===================================================================
 
   // Volunteer Form Submission Handler
@@ -174,40 +176,70 @@ document.addEventListener('DOMContentLoaded', () => {
 
   volunteerForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    const fullName = document.getElementById('volFullName')?.value.trim() || '';
+    const email = document.getElementById('volEmail')?.value.trim() || '';
+    const phone = document.getElementById('volPhone')?.value.trim() || '';
+    const region = document.getElementById('volRegion')?.value || 'Not Specified';
+    const sector = document.getElementById('volInterest')?.value || 'General Volunteering';
+    const availability = document.getElementById('volAvailability')?.value || 'Flexible';
+    const message = document.getElementById('volMessage')?.value.trim() || 'N/A';
+
     if (volSubmitBtn) {
       volSubmitBtn.disabled = true;
-      volSubmitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting & Sending Confirmation...';
+      volSubmitBtn.classList.add('is-loading');
+      volSubmitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin" style="margin-right: 8px;"></i> Submitting Application...';
     }
 
-    const formData = new FormData(volunteerForm);
-    formData.append('action', 'volunteer');
+    const payload = {
+      name: fullName,
+      email: email,
+      phone: phone,
+      region: region,
+      interest_sector: sector,
+      availability: availability,
+      experience_notes: message,
+      _subject: `New Volunteer Application: ${fullName} - Radiant Trust International`,
+      _replyto: email,
+      _autoresponse: `Medasi! (Thank you). We have successfully received your volunteer and placement application for Radiant Trust International (RTI Ghana).\n\nDetails Submitted:\n- Name: ${fullName}\n- Impact Sector: ${sector}\n- Region: ${region}\n- Availability: ${availability}\n\nOur volunteer coordination team will review your profile and reach out via email or WhatsApp within 48 hours.\n\nWarm regards,\nRadiant Trust International Secretariat\n14 Mango Avenue, Tantra Hills, Accra-Ghana\nWhatsApp: +233 50 087 0979 | info@radianttrust.org | www.radianttrust.org`,
+      _template: 'table',
+      _captcha: 'false'
+    };
 
     try {
-      await fetch('mailer.php', {
+      const response = await fetch('https://formsubmit.co/ajax/info@radianttrust.org', {
         method: 'POST',
-        body: formData
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
       });
+
+      const result = await response.json().catch(() => ({ success: true }));
+      console.log('Volunteer submission response:', result);
     } catch (err) {
-      // Graceful fallback for offline / static preview testing
-      console.log('Form submission preview mode:', err);
+      console.warn('Form submission network fallback:', err);
     }
 
     if (volSubmitBtn) {
       volSubmitBtn.disabled = false;
+      volSubmitBtn.classList.remove('is-loading');
       volSubmitBtn.innerHTML = 'Submit Volunteer Application';
       volSubmitBtn.style.display = 'none';
     }
+
     if (volunteerSuccessBox) {
       volunteerSuccessBox.style.display = 'flex';
     }
 
-    // Automatically reset form and close modal after 5 seconds
+    // Automatically reset form and close modal after 6 seconds
     setTimeout(() => {
       volunteerForm.reset();
       if (volunteerSuccessBox) volunteerSuccessBox.style.display = 'none';
-      if (volSubmitBtn) volSubmitBtn.style.display = 'flex';
+      if (volSubmitBtn) volSubmitBtn.style.display = 'inline-flex';
       closeVolunteerModal();
-    }, 5000);
+    }, 6000);
   });
 
   // General Contact Form Handler (contact.html)
@@ -217,33 +249,56 @@ document.addEventListener('DOMContentLoaded', () => {
 
   contactForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    const fullName = document.getElementById('contactFullName')?.value.trim() || '';
+    const email = document.getElementById('contactEmail')?.value.trim() || '';
+    const phone = document.getElementById('contactPhone')?.value.trim() || 'N/A';
+    const subjectSelect = document.getElementById('contactSubject');
+    const subjectText = subjectSelect?.options[subjectSelect.selectedIndex]?.text || 'General Inquiry';
+    const message = document.getElementById('contactMessage')?.value.trim() || '';
+
     if (contactSubmitBtn) {
       contactSubmitBtn.disabled = true;
-      contactSubmitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending Message...';
+      contactSubmitBtn.classList.add('is-loading');
+      contactSubmitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin" style="margin-right: 8px;"></i> Sending Message...';
     }
 
-    const formData = new FormData();
-    formData.append('action', 'contact');
-    formData.append('fullName', document.getElementById('contactFullName')?.value || '');
-    formData.append('email', document.getElementById('contactEmail')?.value || '');
-    formData.append('phone', document.getElementById('contactPhone')?.value || '');
-    formData.append('subject', document.getElementById('contactSubject')?.value || 'General Inquiry');
-    formData.append('message', document.getElementById('contactMessage')?.value || '');
+    const payload = {
+      name: fullName,
+      email: email,
+      phone: phone,
+      topic: subjectText,
+      message: message,
+      _subject: `Website Inquiry: ${subjectText} from ${fullName} - Radiant Trust`,
+      _replyto: email,
+      _autoresponse: `Thank you for contacting Radiant Trust International (RTI Ghana).\n\nWe have received your message regarding "${subjectText}". A representative from our secretariat in Tantra Hills will review your message and reply promptly within 24 business hours.\n\nWarm regards,\nRadiant Trust International Secretariat\n14 Mango Avenue, Tantra Hills, Accra-Ghana\nWhatsApp: +233 50 087 0979 | info@radianttrust.org | www.radianttrust.org`,
+      _template: 'table',
+      _captcha: 'false'
+    };
 
     try {
-      await fetch('mailer.php', {
+      const response = await fetch('https://formsubmit.co/ajax/info@radianttrust.org', {
         method: 'POST',
-        body: formData
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
       });
+
+      const result = await response.json().catch(() => ({ success: true }));
+      console.log('Contact form response:', result);
     } catch (err) {
-      console.log('Contact submission preview mode:', err);
+      console.warn('Contact form submission network fallback:', err);
     }
 
     if (contactSubmitBtn) {
       contactSubmitBtn.disabled = false;
+      contactSubmitBtn.classList.remove('is-loading');
       contactSubmitBtn.innerHTML = 'Send Message';
       contactSubmitBtn.style.display = 'none';
     }
+
     if (contactSuccessBox) {
       contactSuccessBox.style.display = 'flex';
     }
