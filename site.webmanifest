@@ -4,8 +4,8 @@
   "description": "Ghanaian social enterprise and humanitarian NGO driving grassroots transformation across all 16 regions of Ghana.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#391f68",
+  "background_color": "#F29C1C",
+  "theme_color": "#F29C1C",
   "icons": [
     {
       "src": "assets/images/favicon-48x48.png",

@@ -1,8 +1,8 @@
 # Robots.txt for Radiant Trust International (RTI Ghana)
-# Domain: https://radianttrust.org
+# Domain: https://www.radianttrust.org
 
 User-agent: *
 Allow: /
 
-# Sitemap Location
-Sitemap: https://radianttrust.org/sitemap.xml
+# Sitemap Location (Matches Search Console Canonical)
+Sitemap: https://www.radianttrust.org/sitemap.xml
