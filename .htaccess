@@ -1,0 +1,24 @@
+# Radiant Trust International (RTI Ghana)
+# Clean URLs Configuration (.html removal)
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # 1. Redirect /index.html directly to root /
+  RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.html [NC]
+  RewriteRule ^index\.html$ / [R=301,L]
+
+  # 2. Redirect any direct request ending in .html to the clean URL (e.g. /about.html -> /about)
+  RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /([^\ ]+)\.html [NC]
+  RewriteRule ^ %1 [R=301,L]
+
+  # 3. Internally rewrite extensionless requests (e.g. /about) to the actual .html file (about.html)
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}\.html -f
+  RewriteRule ^([^\.]+)$ $1.html [NC,L]
+</IfModule>
+
+# Disable Directory Browsing
+Options -Indexes
+
