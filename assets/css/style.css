@@ -1123,8 +1123,8 @@ a.btn-outline-white:hover,
 .pillar-card-top {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1.15rem;
+  justify-content: flex-start;
+  margin-bottom: 0.85rem;
 }
 
 .pillar-card-num {
@@ -1133,18 +1133,6 @@ a.btn-outline-white:hover,
   font-weight: 800;
   color: var(--color-orange-500);
   line-height: 1;
-}
-
-.pillar-card-icon {
-  width: 44px;
-  height: 44px;
-  background: var(--color-purple-50);
-  color: var(--color-purple-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  border-radius: 0;
 }
 
 .pillar-card-title {
@@ -1175,19 +1163,19 @@ a.btn-outline-white:hover,
 }
 
 .pillar-card-points li {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.65rem;
-  font-size: 0.85rem;
+  position: relative;
+  padding-left: 1.15rem;
+  font-size: 0.88rem;
   color: var(--color-slate-700);
-  line-height: 1.45;
+  line-height: 1.5;
 }
 
-.pillar-card-points li i {
+.pillar-card-points li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
   color: var(--color-orange-500);
-  font-size: 0.8rem;
-  margin-top: 3px;
-  flex-shrink: 0;
+  font-weight: 700;
 }
 
 .pillar-card-link {
@@ -3129,9 +3117,8 @@ a.btn-outline-white:hover,
 
 .value-card-top {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
 
 .value-num-badge {
@@ -3139,24 +3126,6 @@ a.btn-outline-white:hover,
   font-size: 1.5rem;
   font-weight: 800;
   color: var(--color-orange-500);
-}
-
-.value-icon-box {
-  width: 48px;
-  height: 48px;
-  background: var(--color-purple-50);
-  color: var(--color-purple-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.25rem;
-  transition: all 0.3s ease;
-}
-
-.value-feature-card:hover .value-icon-box {
-  background: var(--color-purple-primary);
-  color: #fff;
-  transform: rotate(6deg);
 }
 
 .value-card-title {
@@ -3620,28 +3589,7 @@ a.btn-outline-white:hover,
 .vm-badge-header {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.vm-icon-box {
-  width: 54px;
-  height: 54px;
-  border-radius: 0 !important;
-  background: #f3effa;
-  color: var(--color-purple-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.45rem;
-  border: 1px solid rgba(114, 80, 174, 0.2);
-  flex-shrink: 0;
-}
-
-.vm-card.mission .vm-icon-box {
-  background: #fff8ee;
-  color: var(--color-orange-500);
-  border-color: rgba(242, 156, 28, 0.25);
+  margin-bottom: 1.25rem;
 }
 
 .vm-tag {
@@ -3760,24 +3708,6 @@ a.btn-outline-white:hover,
 .regional-zone-card.highlight:hover {
   border-color: var(--color-orange-500);
   box-shadow: 0 12px 28px rgba(242, 156, 28, 0.15);
-}
-
-.regional-icon-wrap {
-  width: 48px;
-  height: 48px;
-  border-radius: 0 !important;
-  background: rgba(114, 80, 174, 0.1);
-  color: var(--color-purple-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.3rem;
-  margin-bottom: 1.25rem;
-}
-
-.regional-zone-card.highlight .regional-icon-wrap {
-  background: rgba(242, 156, 28, 0.15);
-  color: var(--color-orange-600);
 }
 
 .regional-zone-name {
