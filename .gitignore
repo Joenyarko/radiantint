@@ -14,6 +14,12 @@ yarn-error.log*
 # Dependencies (if any added later)
 node_modules/
 
+# Environment variables & secrets
+.env
+.env.*
+*.env
+.vercel/
+
 # Editor directories
 .vscode/
 .idea/

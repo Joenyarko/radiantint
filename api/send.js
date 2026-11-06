@@ -1,26 +1,96 @@
 const nodemailer = require('nodemailer');
 
+const ALLOWED_ORIGINS = [
+  'https://www.radianttrust.org',
+  'https://radianttrust.org'
+];
+
+const EMAIL_REGEX = /^[^\s@<>()[\]\\,;:"]+@[^\s@<>()[\]\\,;:"]+\.[^\s@<>()[\]\\,;:"]{2,}$/;
+
+// Best-effort in-memory rate limit (per warm serverless instance)
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
+const RATE_LIMIT_MAX = 5;
+const rateBuckets = new Map();
+
+function isRateLimited(key) {
+  const now = Date.now();
+  const hits = (rateBuckets.get(key) || []).filter((t) => now - t < RATE_LIMIT_WINDOW_MS);
+  hits.push(now);
+  rateBuckets.set(key, hits);
+  if (rateBuckets.size > 1000) {
+    for (const [k, v] of rateBuckets) {
+      if (!v.some((t) => now - t < RATE_LIMIT_WINDOW_MS)) rateBuckets.delete(k);
+    }
+  }
+  return hits.length > RATE_LIMIT_MAX;
+}
+
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+// Tagged template: HTML-escapes every interpolated value
+function safeHtml(strings, ...values) {
+  return strings.reduce(
+    (out, s, i) => out + s + (i < values.length ? escapeHtml(values[i]) : ''),
+    ''
+  );
+}
+
+// Single-line header values: strip CR/LF and other control chars, cap length
+function cleanLine(value, max) {
+  return String(value ?? '')
+    .replace(/[\u0000-\u001f\u007f]+/g, ' ')
+    .replace(/["<>]/g, '')
+    .trim()
+    .slice(0, max);
+}
+
+// Multi-line free text: keep newlines, drop other control chars, cap length
+function cleanText(value, max) {
+  return String(value ?? '')
+    .replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, '')
+    .trim()
+    .slice(0, max);
+}
+
 /**
  * Vercel Serverless Function: Official Hostinger SMTP Mailer
  * Sends emails directly from info@radianttrust.org with authentic
  * sender display name: "Radiant Trust International" <info@radianttrust.org>
  */
 module.exports = async function handler(req, res) {
-  // Set CORS headers
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-  );
+  // CORS: only allow our own origins
+  const origin = req.headers.origin;
+  if (origin && ALLOWED_ORIGINS.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Vary', 'Origin');
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Accept');
 
   if (req.method === 'OPTIONS') {
-    return res.status(200).end();
+    return res.status(204).end();
   }
 
   if (req.method !== 'POST') {
     return res.status(405).json({ success: false, error: 'Method Not Allowed' });
+  }
+
+  if (origin && !ALLOWED_ORIGINS.includes(origin)) {
+    return res.status(403).json({ success: false, error: 'Forbidden' });
+  }
+
+  const clientIp = String(req.headers['x-forwarded-for'] || req.socket?.remoteAddress || 'unknown')
+    .split(',')[0]
+    .trim();
+  if (isRateLimited(clientIp)) {
+    return res.status(429).json({ success: false, error: 'Too many requests. Please try again later.' });
   }
 
   // Get credentials from Vercel Environment Variables
@@ -34,7 +104,7 @@ module.exports = async function handler(req, res) {
     return res.status(500).json({
       success: false,
       missingConfig: true,
-      error: 'SMTP_PASS environment variable not configured on Vercel.'
+      error: 'Mail service is not configured.'
     });
   }
 
@@ -47,20 +117,29 @@ module.exports = async function handler(req, res) {
     }
   }
 
-  const {
-    action = 'volunteer',
-    name = '',
-    email = '',
-    phone = '',
-    region = 'Not Specified',
-    sector = 'General Volunteering',
-    availability = 'Flexible',
-    message = '',
-    topic = 'General Inquiry'
-  } = body || {};
+  const input = body && typeof body === 'object' ? body : {};
+
+  // Honeypot: silently succeed for bots
+  if (input.website_hp || input.bot_field) {
+    return res.status(200).json({ success: true, message: 'Message processed' });
+  }
+
+  const action = cleanLine(input.action || 'volunteer', 20);
+  const name = cleanLine(input.name, 100);
+  const email = cleanLine(input.email, 120);
+  const phone = cleanLine(input.phone, 30);
+  const region = cleanLine(input.region || 'Not Specified', 60);
+  const sector = cleanLine(input.sector || 'General Volunteering', 100);
+  const availability = cleanLine(input.availability || 'Flexible', 80);
+  const topic = cleanLine(input.topic || 'General Inquiry', 120);
+  const message = cleanText(input.message, 2500);
 
   if (!email || !name) {
     return res.status(400).json({ success: false, error: 'Name and email are required.' });
+  }
+
+  if (!EMAIL_REGEX.test(email)) {
+    return res.status(400).json({ success: false, error: 'Please provide a valid email address.' });
   }
 
   try {
@@ -89,7 +168,7 @@ module.exports = async function handler(req, res) {
         to: orgEmail,
         replyTo: `"${name}" <${email}>`,
         subject: `New Volunteer Application: ${name} - Radiant Trust`,
-        html: `
+        html: safeHtml`
         <!DOCTYPE html>
         <html>
         <head><meta charset="utf-8"></head>
@@ -126,7 +205,7 @@ module.exports = async function handler(req, res) {
         to: email,
         replyTo: `"${orgDisplayName}" <${orgEmail}>`,
         subject: `We Received Your Volunteer Application | Radiant Trust International`,
-        html: `
+        html: safeHtml`
         <!DOCTYPE html>
         <html>
         <head><meta charset="utf-8"></head>
@@ -184,7 +263,7 @@ module.exports = async function handler(req, res) {
         to: orgEmail,
         replyTo: `"${name}" <${email}>`,
         subject: `Website Inquiry: ${topic} from ${name}`,
-        html: `
+        html: safeHtml`
         <!DOCTYPE html>
         <html>
         <head><meta charset="utf-8"></head>
@@ -213,7 +292,7 @@ module.exports = async function handler(req, res) {
         to: email,
         replyTo: `"${orgDisplayName}" <${orgEmail}>`,
         subject: `Thank you for contacting Radiant Trust International`,
-        html: `
+        html: safeHtml`
         <!DOCTYPE html>
         <html>
         <head><meta charset="utf-8"></head>
@@ -254,7 +333,7 @@ module.exports = async function handler(req, res) {
     console.error('SMTP sending error:', error);
     return res.status(500).json({
       success: false,
-      error: error.message || 'Failed to dispatch email via Hostinger SMTP.'
+      error: 'Failed to send message. Please try again later.'
     });
   }
 };

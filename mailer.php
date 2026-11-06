@@ -37,23 +37,35 @@ if (!empty($_POST['website_hp']) || !empty($_POST['bot_field'])) {
 
 $action = isset($_POST['action']) ? trim($_POST['action']) : 'volunteer';
 
-// Helper to sanitize inputs
+// Helper to sanitize inputs (HTML-escape)
 function clean_input($data) {
     return htmlspecialchars(stripslashes(trim($data ?? '')), ENT_QUOTES, 'UTF-8');
+}
+
+// Helper for single-line values used in headers/subjects: strips CR/LF & control chars, caps length
+function clean_line($data, $max = 100) {
+    $data = preg_replace('/[\x00-\x1F\x7F]+/', ' ', (string)($data ?? ''));
+    $data = str_replace(['<', '>', '"'], '', $data);
+    return mb_substr(clean_input($data), 0, $max);
+}
+
+// Helper for multi-line free text: HTML-escaped, length capped
+function clean_text($data, $max = 2500) {
+    return mb_substr(clean_input($data), 0, $max);
 }
 
 // -------------------------------------------------------------
 // 1. VOLUNTEER / INTERNSHIP APPLICATION HANDLER
 // -------------------------------------------------------------
 if ($action === 'volunteer') {
-    $fullName = clean_input($_POST['fullName'] ?? $_POST['name'] ?? '');
+    $fullName = clean_line($_POST['fullName'] ?? $_POST['name'] ?? '', 100);
     $email    = filter_var(trim($_POST['email'] ?? ''), FILTER_VALIDATE_EMAIL);
-    $phone    = clean_input($_POST['phone'] ?? '');
-    $interest = clean_input($_POST['interest'] ?? 'General Volunteering');
-    $duration = clean_input($_POST['duration'] ?? 'Not specified');
-    $message  = clean_input($_POST['message'] ?? '');
+    $phone    = clean_line($_POST['phone'] ?? '', 30);
+    $interest = clean_line($_POST['interest'] ?? 'General Volunteering', 100);
+    $duration = clean_line($_POST['duration'] ?? 'Not specified', 80);
+    $message  = clean_text($_POST['message'] ?? '');
 
-    if (empty($fullName) || !$email) {
+    if (empty($fullName) || !$email || strlen($email) > 120) {
         http_response_code(400);
         echo json_encode(['success' => false, 'error' => 'Please provide a valid name and email address.']);
         exit;
@@ -86,7 +98,7 @@ if ($action === 'volunteer') {
     $adminHeaders .= "Content-type: text/html; charset=UTF-8\r\n";
     $adminHeaders .= "From: $organizationName <$adminEmail>\r\n";
     $adminHeaders .= "Reply-To: $fullName <$email>\r\n";
-    $adminHeaders .= "X-Mailer: PHP/" . phpversion();
+    $adminHeaders .= "X-Content-Type-Options: nosniff";
 
     @mail($adminEmail, $adminSubject, $adminBody, $adminHeaders);
 
@@ -127,7 +139,7 @@ if ($action === 'volunteer') {
     $userHeaders .= "Content-type: text/html; charset=UTF-8\r\n";
     $userHeaders .= "From: $organizationName <$adminEmail>\r\n";
     $userHeaders .= "Reply-To: $organizationName <$adminEmail>\r\n";
-    $userHeaders .= "X-Mailer: PHP/" . phpversion();
+    $userHeaders .= "X-Content-Type-Options: nosniff";
 
     @mail($email, $userSubject, $userBody, $userHeaders);
 
@@ -139,13 +151,13 @@ if ($action === 'volunteer') {
 // 2. GENERAL CONTACT FORM HANDLER
 // -------------------------------------------------------------
 if ($action === 'contact') {
-    $fullName = clean_input($_POST['fullName'] ?? $_POST['name'] ?? '');
+    $fullName = clean_line($_POST['fullName'] ?? $_POST['name'] ?? '', 100);
     $email    = filter_var(trim($_POST['email'] ?? ''), FILTER_VALIDATE_EMAIL);
-    $phone    = clean_input($_POST['phone'] ?? '');
-    $subject  = clean_input($_POST['subject'] ?? 'General Inquiry');
-    $message  = clean_input($_POST['message'] ?? '');
+    $phone    = clean_line($_POST['phone'] ?? '', 30);
+    $subject  = clean_line($_POST['subject'] ?? 'General Inquiry', 120);
+    $message  = clean_text($_POST['message'] ?? '');
 
-    if (empty($fullName) || !$email || empty($message)) {
+    if (empty($fullName) || !$email || strlen($email) > 120 || empty($message)) {
         http_response_code(400);
         echo json_encode(['success' => false, 'error' => 'Please fill in all required fields.']);
         exit;
