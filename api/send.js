@@ -96,7 +96,7 @@ module.exports = async function handler(req, res) {
   // Get credentials from Vercel Environment Variables
   const smtpHost = process.env.SMTP_HOST || 'smtp.hostinger.com';
   const smtpPort = parseInt(process.env.SMTP_PORT || '465', 10);
-  const smtpUser = process.env.SMTP_USER || 'info@radianttrust.org';
+  const smtpUser = process.env.SMTP_USER || 'benjamin@radianttrust.org';
   const smtpPass = process.env.SMTP_PASS || process.env.HOSTINGER_EMAIL_PASS;
 
   if (!smtpPass) {
@@ -156,6 +156,7 @@ module.exports = async function handler(req, res) {
 
     const orgDisplayName = 'Radiant Trust International';
     const orgEmail = 'info@radianttrust.org';
+    const senderEmail = process.env.SMTP_FROM || smtpUser;
     const websiteUrl = 'https://radianttrust.org';
 
     // -------------------------------------------------------------
@@ -164,7 +165,7 @@ module.exports = async function handler(req, res) {
     if (action === 'volunteer') {
       // A. Admin notification email
       const adminMailOptions = {
-        from: `"${orgDisplayName}" <${orgEmail}>`,
+        from: `"${orgDisplayName}" <${senderEmail}>`,
         to: orgEmail,
         replyTo: `"${name}" <${email}>`,
         subject: `New Volunteer Application: ${name} - Radiant Trust`,
@@ -201,7 +202,7 @@ module.exports = async function handler(req, res) {
 
       // B. Auto-Reply directly to Volunteer
       const volunteerAutoReply = {
-        from: `"${orgDisplayName}" <${orgEmail}>`,
+        from: `"${orgDisplayName}" <${senderEmail}>`,
         to: email,
         replyTo: `"${orgDisplayName}" <${orgEmail}>`,
         subject: `We Received Your Volunteer Application | Radiant Trust International`,
@@ -259,7 +260,7 @@ module.exports = async function handler(req, res) {
     // -------------------------------------------------------------
     if (action === 'contact') {
       const adminMailOptions = {
-        from: `"${orgDisplayName}" <${orgEmail}>`,
+        from: `"${orgDisplayName}" <${senderEmail}>`,
         to: orgEmail,
         replyTo: `"${name}" <${email}>`,
         subject: `Website Inquiry: ${topic} from ${name}`,
@@ -288,7 +289,7 @@ module.exports = async function handler(req, res) {
       };
 
       const contactAutoReply = {
-        from: `"${orgDisplayName}" <${orgEmail}>`,
+        from: `"${orgDisplayName}" <${senderEmail}>`,
         to: email,
         replyTo: `"${orgDisplayName}" <${orgEmail}>`,
         subject: `Thank you for contacting Radiant Trust International`,
